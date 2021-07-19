@@ -9,9 +9,10 @@ Part 0 completed in around 22 minutes.
 
 ### Part 1 - Estimated time 45 to 55 minutes
     19 Jul '21 
-    12:21 - : Working on the auth endpoint in the backend
+    12:21 - 12:46: Working on the auth endpoint in the backend
+    14:17 - 15:54 : Working on the auth enpoint in the backend
 
-Part 1 completed in around .
+Part 1 completed in around 2hrs and 2 minutes. (I majorly under-estimated the time it would take for finishing this part.)
 
 ### MISC
 23 Jul '21
