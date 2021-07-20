@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema({
     photoURL: {
         type: String,
     },
+    name: {
+        type: String,
+        required: true,
+    },
 }, { timestamps: true });
 
 const UserModel = mongoose.model('User', UserSchema)

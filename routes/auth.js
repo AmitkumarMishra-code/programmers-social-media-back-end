@@ -23,15 +23,17 @@ const router = express.Router()
 // })
 
 router.post('/signup', multipart.single('profilePic'), async(req, res) => {
+
+    req.body.photoURL = req.file ? req.file.path : null
+
     if (!req.body.username || !req.body.email || !req.body.password) {
         res.status(401).json({ message: "Missing parameters!" })
     } else {
-        let photoURL = req.body.photoURL ? req.file.filename : ''
-        let request = await createNewUser(req.body.username, req.body.email, req.body.password, photoURL)
+        let request = await createNewUser(req.body.username, req.body.email, req.body.password, req.body.photoURL, req.body.name)
         if (request.status) {
-            res.status(200).json(request.message)
+            res.status(200).json({ message: request.message })
         } else {
-            res.status(400).json(request.message)
+            res.status(400).json({ message: request.message })
         }
     }
 })
@@ -43,7 +45,7 @@ router.post('/login', async(req, res) => {
     } else {
         let request = await loginUser(username, password)
         if (!request.status) {
-            res.status(400).json(request.message)
+            res.status(400).json({ message: request.message })
         } else {
             let payload = {
                 username
@@ -66,9 +68,9 @@ router.get('/logout', async(req, res) => {
         let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
         let request = await logoutUser(decoded.username)
         if (request) {
-            res.status(200).json(request.message)
+            res.status(200).json({ message: request.message })
         } else {
-            res.status(400).json(request.message)
+            res.status(400).json({ message: request.message })
         }
     } catch (error) {
         res.status(400).json({ message: "An Error occured : " + error.message })
