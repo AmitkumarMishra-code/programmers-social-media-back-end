@@ -14,7 +14,7 @@ Part 0 completed in around 22 minutes.
 
 Part 1 completed in around 2hrs and 2 minutes. (I majorly under-estimated the time it would take for finishing this part.)
 
-### Part 2 = Estimated time 120 to 125 minutes
+### Part 2 - Estimated time 120 to 125 minutes
     19 Jul '21
     15:56 - 16:30 : Reading documentation of Chakra UI
     16:35 - 17:15 : Working on Login Page of front-end
@@ -29,6 +29,12 @@ Part 1 completed in around 2hrs and 2 minutes. (I majorly under-estimated the ti
 
     Part 2 completed in around 4hrs and 42 minutes (Wow, I am good at underestimating. I got stuck in uploading the image. It wasn't working as expected earlier. I figured out a way eventually, but it cost me some time.)
 
+### Part 3 - Estimated time 50-60 minutes
+    21 Jul'21
+    16:48 - 17:50 : Working on part 3, endpoints related to posts, in the back-end
+    18:05 - 18:15 : Working on part 3, endppoints related to posts, in the back-end, and testing it locally with Insomnia
+
+    Part 3 completed in around 1 hr and 12 minutes.
 ### MISC
 23 Jul '21
 11.30 - 13.00: Fixed some bugs and UI issues as per the feedback
