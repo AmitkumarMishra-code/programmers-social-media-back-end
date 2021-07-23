@@ -14,10 +14,12 @@ app.use(express.static('static'))
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(authChecker)
+
 
 const authRouter = require('./routes/auth')
 const postRouter = require('./routes/post')
+const { followUser, unfollowUser, getAllUsers } = require('./controllers/userController')
+const { logoutUser } = require('./controllers/tokenController')
 
 mongoose.connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
@@ -31,7 +33,54 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', authRouter)
+app.use(authChecker)
 app.use('/post', authChecker, postRouter)
+
+app.post('/follow/:id', authChecker, async(req, res) => {
+    let userId = req.params.id
+    let response = await followUser(req._username, userId)
+    if (response.status) {
+        res.status(200).json({ message: response.message })
+    } else {
+        res.status(400).json({ message: response.message })
+    }
+})
+
+app.post('/unfollow/:id', authChecker, async(req, res) => {
+    let userId = req.params.id
+    let response = await unfollowUser(req._username, userId)
+    if (response.status) {
+        res.status(200).json({ message: response.message })
+    } else {
+        res.status(400).json({ message: response.message })
+    }
+})
+
+app.get('/logout', authChecker, async(req, res) => {
+    try {
+        let request = await logoutUser(req._username)
+        if (request) {
+            res.status(200).json({ message: request.message })
+        } else {
+            res.status(400).json({ message: request.message })
+        }
+    } catch (error) {
+        res.status(400).json({ message: "An Error occured : " + error.message })
+    }
+})
+
+app.get('/users', authChecker, async(req, res) => {
+    try {
+        let request = await getAllUsers(req._username)
+        if (request) {
+            res.status(200).json({ message: request.message })
+        } else {
+            res.status(400).json({ message: request.message })
+        }
+    } catch (error) {
+        res.status(400).json({ message: "An Error occured : " + error.message })
+    }
+})
 
 app.all(/.*/, (req, res) => {
     res.status(404).json({ message: 'Invalid endpoint. Please contact the admin.' })
@@ -50,9 +99,8 @@ function authChecker(req, res, next) {
             req._username = decoded.username
             next()
         } catch (error) {
-            res.status(401).json({ message: 'Token Expired!' })
+            console.log('Expired!')
+            res.status(403).json({ message: 'Token Expired!' })
         }
-    } else {
-        next()
     }
 }

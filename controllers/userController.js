@@ -65,8 +65,62 @@ const loginUser = async(username, password) => {
     }
 }
 
+const followUser = async(currentUser, userToFollow) => {
+    try {
+        let validUser = await User.findOne({ username: userToFollow })
+        if (!validUser) {
+            return { status: false, message: `This user doesn't exist! Try again!!` }
+        } else {
+            let user = await User.findOne({ username: currentUser })
+            validUser.followers.push(user._id)
+            await validUser.save()
+            user.following.push(validUser._id)
+            await user.save()
+            return { status: true, message: 'Successfully followed ' + userToFollow }
+        }
+    } catch (error) {
+        return { status: false, message: error.message }
+    }
+}
+
+const unfollowUser = async(currentUser, userToFollow) => {
+    try {
+        let validUser = await User.findOne({ username: userToFollow })
+        if (!validUser) {
+            return { status: false, message: `This user doesn't exist! Try again!!` }
+        } else {
+            let user = await User.findOne({ username: currentUser })
+            validUser.followers.pull(user._id)
+            await validUser.save()
+            user.following.pull(validUser._id)
+            await user.save()
+            return { status: true, message: 'Successfully unfollowed ' + userToFollow }
+        }
+    } catch (error) {
+        return { status: false, message: error.message }
+    }
+}
+
+const getAllUsers = async(username) => {
+    try {
+        let currentUser = await User.findOne({ username }).populate('following', 'username')
+        if (!currentUser) {
+            return { status: false, message: `Invalid User! Try again!!` }
+        } else {
+            let usersToFollow = await User.find({}, { password: 0, name: 0, createdAt: 0, updatedAt: 0 })
+            let alreadyFollowedUser = currentUser.following
+            let filteredUsersToFollow = usersToFollow.filter(user => user.username !== currentUser.username).filter(user => alreadyFollowedUser.every(followed => followed.username !== user.username))
+            return { status: true, message: filteredUsersToFollow }
+        }
+    } catch (error) {
+        return { status: false, message: error.message }
+    }
+}
 
 module.exports = {
     createNewUser,
-    loginUser
+    loginUser,
+    followUser,
+    unfollowUser,
+    getAllUsers
 }

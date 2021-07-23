@@ -35,6 +35,11 @@ Part 1 completed in around 2hrs and 2 minutes. (I majorly under-estimated the ti
     18:05 - 18:15 : Working on part 3, endppoints related to posts, in the back-end, and testing it locally with Insomnia
 
     Part 3 completed in around 1 hr and 12 minutes.
+
+### Part 4 - Estimated time 120 to 150 minutes
+    21 Jul'21
+    22:08 - 23:20 : Working on part 4, feeds page on the front-end.
+    
 ### MISC
 23 Jul '21
 11.30 - 13.00: Fixed some bugs and UI issues as per the feedback

@@ -10,6 +10,10 @@ const addToken = async(refreshToken, username) => {
         return { status: false, message: "Empty Token!" }
     }
     try {
+        let user = await Token.findOne({ username })
+        if (user) {
+            await user.remove()
+        }
         let token = new Token({ username, token: refreshToken })
         await token.save()
         return { status: true, message: "Token saved successfully!" }

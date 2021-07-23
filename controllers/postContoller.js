@@ -9,7 +9,7 @@ const getAllPosts = async(username) => {
         if (!user) {
             return { status: false, message: 'User not found!' }
         } else {
-            let posts = await Posts.find({ author: user._id })
+            let posts = await Posts.find({ author: user._id }).populate('author', 'username')
             return { status: true, message: posts }
         }
     } catch (error) {
@@ -25,7 +25,8 @@ const createPost = async(username, post) => {
         } else {
             let newPost = new Posts({ post: post, author: user._id })
             let createdPost = await newPost.save()
-            return { status: true, message: 'Successfully created new post!' }
+            createdPost._doc.author = { username }
+            return { status: true, message: createdPost }
         }
     } catch (error) {
         return { status: false, message: error.message }

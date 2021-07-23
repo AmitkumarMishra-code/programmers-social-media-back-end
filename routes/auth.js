@@ -13,14 +13,10 @@ const storage = multer.diskStorage({
 
 const multipart = multer({ storage: storage })
 
-const { addToken, logoutUser, findToken } = require('../controllers/tokenController')
+const { addToken, findToken } = require('../controllers/tokenController')
 const { createNewUser, loginUser } = require('../controllers/userController')
 
 const router = express.Router()
-
-// router.get('/', (req, res) => {
-//     res.status(200).send({ message: 'Connected to auth' })
-// })
 
 router.post('/signup', multipart.single('profilePic'), async(req, res) => {
 
@@ -62,21 +58,6 @@ router.post('/login', async(req, res) => {
     }
 })
 
-router.get('/logout', async(req, res) => {
-    let token = req.headers['authorization'].split(' ')[1]
-    try {
-        let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-        let request = await logoutUser(decoded.username)
-        if (request) {
-            res.status(200).json({ message: request.message })
-        } else {
-            res.status(400).json({ message: request.message })
-        }
-    } catch (error) {
-        res.status(400).json({ message: "An Error occured : " + error.message })
-    }
-})
-
 router.post('/token', async(req, res) => {
     const { token } = req.body
     if (!token) {
@@ -92,7 +73,7 @@ router.post('/token', async(req, res) => {
                     username: decoded.username
                 }
                 let newAccessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRE_TIME })
-                res.status(200).json({ 'access_token': newAccessToken })
+                res.status(200).json({ access_Token: newAccessToken })
             }
         } catch (error) {
             res.status(401).json({ message: error.message })
