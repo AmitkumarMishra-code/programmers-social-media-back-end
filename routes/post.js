@@ -12,7 +12,6 @@ router.get('/', async(req, res) => {
 })
 
 router.post('/', async(req, res) => {
-    console.log(req.body)
     let { post } = req.body
     if (!post || !post.length) {
         res.status(401).json({ message: 'Missing parameters!' })

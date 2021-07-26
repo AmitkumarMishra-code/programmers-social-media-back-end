@@ -39,6 +39,15 @@ Part 1 completed in around 2hrs and 2 minutes. (I majorly under-estimated the ti
 ### Part 4 - Estimated time 120 to 150 minutes
     21 Jul'21
     22:08 - 23:20 : Working on part 4, feeds page on the front-end.
+
+### Part 5 - 
+
+### Part 6 - 
+
+
+### Part 7 - 
+
+chitchat from 5:15 to 5:37 pm
     
 ### MISC
 23 Jul '21

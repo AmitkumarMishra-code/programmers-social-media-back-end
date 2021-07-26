@@ -56,8 +56,76 @@ const deletePost = async(username, post_id) => {
     }
 }
 
+const getFollowedUserPosts = async(username) => {
+    try {
+        let currentUser = await User.findOne({ username })
+        if (!currentUser) {
+            return { status: false, message: 'User not found!' }
+        } else {
+
+            let following = currentUser.following.map(user => user._id)
+            let posts = await Posts.find({ author: { "$in": following } }, { post: 1, author: 1, createdAt: 1, likes: 1 }).populate('author', 'username')
+            posts.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+            let postsToSend = []
+            if (posts.length > 20) {
+                postsToSend = posts.slice(0, 20)
+            } else {
+                postsToSend = [...posts]
+            }
+            let likesMap = postsToSend.map(post => post.likes.includes(currentUser._id) ? true : false)
+            return { status: true, message: { posts: postsToSend, likesMap: likesMap } }
+        }
+    } catch (error) {
+        return { status: false, message: error.message }
+    }
+}
+
+const likePost = async(username, postId) => {
+    try {
+        let currentUser = await User.findOne({ username })
+        if (!currentUser) {
+            return { status: false, message: 'User not found!' }
+        } else {
+            let post = await Posts.findOne({ _id: postId })
+            console.log(post)
+            if (!post) {
+                return { status: false, message: `Post doesn't exist!` }
+            } else {
+                post.likes.push(currentUser._id)
+                await post.save()
+                return { status: true, message: 'Successfully liked the post!' }
+            }
+        }
+    } catch (error) {
+        return { status: false, message: error.message }
+    }
+}
+
+const unlikePost = async(username, postId) => {
+    try {
+        let currentUser = await User.findOne({ username })
+        if (!currentUser) {
+            return { status: false, message: 'User not found!' }
+        } else {
+            let post = await Posts.findOne({ _id: postId })
+            if (!post) {
+                return { status: false, message: `Post doesn't exist!` }
+            } else {
+                post.likes.pull(currentUser._id)
+                await post.save()
+                return { status: true, message: 'Successfully unliked the post!' }
+            }
+        }
+    } catch (error) {
+        return { status: false, message: error.message }
+    }
+}
+
 module.exports = {
     getAllPosts,
     createPost,
-    deletePost
+    deletePost,
+    getFollowedUserPosts,
+    likePost,
+    unlikePost
 }

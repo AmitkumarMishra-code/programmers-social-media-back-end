@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const User = require('../models/user')
+const Posts = require('../models/posts')
 const bcrypt = require('bcrypt')
 
 
@@ -117,10 +118,80 @@ const getAllUsers = async(username) => {
     }
 }
 
+const getCurrentProfile = async(currentUser) => {
+    try {
+        let userDetails = await User.findOne({ username: currentUser }, { following: 1, followers: 1, photoURL: 1, name: 1 })
+        let posts = await Posts.find({ author: userDetails._id }, { post: 1, author: 1, createdAt: 1, likes: 1 }).populate('author', 'username')
+        posts.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+        let postsToSend = []
+        if (posts.length > 10) {
+            postsToSend = posts.slice(0, 10)
+        } else {
+            postsToSend = [...posts]
+        }
+        let likesMap = postsToSend.map(post => post.likes.includes(userDetails._id) ? true : false)
+        let userObject = {
+            username: currentUser,
+            following: userDetails.following.length,
+            followers: userDetails.followers.length,
+            photoURL: userDetails.photoURL,
+            name: userDetails.name,
+            posts: postsToSend,
+            likesMap: likesMap,
+            self: true,
+            currentlyFollowing: false
+        }
+        return { status: true, message: userObject }
+    } catch (error) {
+        return { status: false, message: error.message }
+    }
+}
+
+const getUserProfile = async(currentUser, profileToGet) => {
+    try {
+        let currentUserDetails = await User.findOne({ username: currentUser })
+        let userDetails = await User.findOne({ username: profileToGet }, { following: 1, followers: 1, photoURL: 1, name: 1 }).populate('followers', 'username')
+        let posts = await Posts.find({ author: userDetails._id }, { post: 1, author: 1, createdAt: 1, likes: 1 }).populate('author', 'username')
+        posts.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+        let postsToSend = []
+        if (posts.length > 10) {
+            postsToSend = posts.slice(0, 10)
+        } else {
+            postsToSend = [...posts]
+        }
+        let likesMap = postsToSend.map(post => post.likes.includes(currentUserDetails._id) ? true : false)
+        let currentlyFollowing = false
+
+        for (let users of userDetails.followers) {
+            if (users.username === currentUser) {
+                currentlyFollowing = true
+            }
+        }
+        let userObject = {
+            username: profileToGet,
+            following: userDetails.following.length,
+            followers: userDetails.followers.length,
+            photoURL: userDetails.photoURL,
+            name: userDetails.name,
+            posts: postsToSend,
+            likesMap: likesMap,
+            self: false,
+            currentlyFollowing: currentlyFollowing
+        }
+        return { status: true, message: userObject }
+    } catch (error) {
+        console.log(error.message)
+        return { status: false, message: error.message }
+    }
+}
+
+
 module.exports = {
     createNewUser,
     loginUser,
     followUser,
     unfollowUser,
-    getAllUsers
+    getAllUsers,
+    getCurrentProfile,
+    getUserProfile
 }
