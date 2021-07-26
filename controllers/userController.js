@@ -121,8 +121,9 @@ const getAllUsers = async(username) => {
 const getCurrentProfile = async(currentUser) => {
     try {
         let userDetails = await User.findOne({ username: currentUser }, { following: 1, followers: 1, photoURL: 1, name: 1 })
-        let posts = await Posts.find({ author: userDetails._id }, { post: 1, author: 1, createdAt: 1, likes: 1 }).populate('author', 'username')
+        let posts = await Posts.find({ author: userDetails._id }, { post: 1, author: 1, createdAt: 1, likes: 1 }).populate('author', 'username photoURL name')
         posts.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+        console.log(posts)
         let postsToSend = []
         if (posts.length > 10) {
             postsToSend = posts.slice(0, 10)
@@ -151,7 +152,7 @@ const getUserProfile = async(currentUser, profileToGet) => {
     try {
         let currentUserDetails = await User.findOne({ username: currentUser })
         let userDetails = await User.findOne({ username: profileToGet }, { following: 1, followers: 1, photoURL: 1, name: 1 }).populate('followers', 'username')
-        let posts = await Posts.find({ author: userDetails._id }, { post: 1, author: 1, createdAt: 1, likes: 1 }).populate('author', 'username')
+        let posts = await Posts.find({ author: userDetails._id }, { post: 1, author: 1, createdAt: 1, likes: 1 }).populate('author', 'username  photoURL name')
         posts.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
         let postsToSend = []
         if (posts.length > 10) {

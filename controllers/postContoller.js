@@ -64,7 +64,7 @@ const getFollowedUserPosts = async(username) => {
         } else {
 
             let following = currentUser.following.map(user => user._id)
-            let posts = await Posts.find({ author: { "$in": following } }, { post: 1, author: 1, createdAt: 1, likes: 1 }).populate('author', 'username')
+            let posts = await Posts.find({ author: { "$in": following } }, { post: 1, author: 1, createdAt: 1, likes: 1 }).populate('author', 'username photoURL name')
             posts.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
             let postsToSend = []
             if (posts.length > 20) {
@@ -73,9 +73,11 @@ const getFollowedUserPosts = async(username) => {
                 postsToSend = [...posts]
             }
             let likesMap = postsToSend.map(post => post.likes.includes(currentUser._id) ? true : false)
+            console.log(postsToSend)
             return { status: true, message: { posts: postsToSend, likesMap: likesMap } }
         }
     } catch (error) {
+        console.log('in error')
         return { status: false, message: error.message }
     }
 }
@@ -87,7 +89,6 @@ const likePost = async(username, postId) => {
             return { status: false, message: 'User not found!' }
         } else {
             let post = await Posts.findOne({ _id: postId })
-            console.log(post)
             if (!post) {
                 return { status: false, message: `Post doesn't exist!` }
             } else {

@@ -59,8 +59,25 @@ const findToken = async(token, username) => {
     }
 }
 
+const checkRefreshToken = async(username) => {
+    if (!username.length) {
+        return { status: false, message: "Invalid username!" }
+    }
+    try {
+        let token = await Token.findOne({ username })
+        if (!token) {
+            return { status: false, message: "Username not found!" }
+        } else {
+            return { status: true, message: "Session is valid!" }
+        }
+    } catch (error) {
+        return { status: false, message: "An Error occured : " + error.message }
+    }
+}
+
 module.exports = {
     addToken,
     logoutUser,
-    findToken
+    findToken,
+    checkRefreshToken
 }
