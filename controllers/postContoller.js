@@ -64,6 +64,7 @@ const getFollowedUserPosts = async(username) => {
         } else {
 
             let following = currentUser.following.map(user => user._id)
+            following.push(currentUser._id)
             let posts = await Posts.find({ author: { "$in": following } }, { post: 1, author: 1, createdAt: 1, likes: 1 }).populate('author', 'username photoURL name')
             posts.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
             let postsToSend = []
