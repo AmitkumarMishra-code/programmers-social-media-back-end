@@ -118,3 +118,8 @@ Part 1 completed in around 2hrs and 2 minutes. (I majorly under-estimated the ti
 
     27 Jul'21
     12:10 - 12:30 : Fixed bug for username that doesn't exist.
+    12:38 - 12:41 : Fixed bug for /profile/{currently-logged-in-user}, it was showing the follow button earlier. Doesn't show now.
+    20:10 - 20:45 : Fixed bug for image not showing
+    21:20 - 20:39 : Fixed bug for image not showing
+
+    Worked on Misc for around 5 hrs and 08 minutes
