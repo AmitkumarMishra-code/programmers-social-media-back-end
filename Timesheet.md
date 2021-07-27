@@ -115,3 +115,6 @@ Part 1 completed in around 2hrs and 2 minutes. (I majorly under-estimated the ti
     16:32 - 17:05 : Implemented Toast Messages and fixed some bugs in the front-end and back-end.
     20:40 - 21:12 : Fixed some bugs and made some UI improvements.
     21:46 - 22:51 : Fixed some bugs and made some UI changes to the posts.
+
+    27 Jul'21
+    12:10 - 12:30 : Fixed bug for username that doesn't exist.

@@ -176,12 +176,11 @@ const getUserProfile = async(currentUser, profileToGet) => {
             name: userDetails.name,
             posts: postsToSend,
             likesMap: likesMap,
-            self: false,
+            self: currentUser === profileToGet,
             currentlyFollowing: currentlyFollowing
         }
         return { status: true, message: userObject }
     } catch (error) {
-        console.log(error.message)
         return { status: false, message: error.message }
     }
 }
