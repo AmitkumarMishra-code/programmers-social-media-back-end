@@ -40,15 +40,78 @@ Part 1 completed in around 2hrs and 2 minutes. (I majorly under-estimated the ti
     21 Jul'21
     22:08 - 23:20 : Working on part 4, feeds page on the front-end.
 
-### Part 5 - 
+    22 Jul'21
+    11:30 - 13:05 : Working on part 4, feeds page on the front-end.
+    14:30 - 15:20 : Working on part 4, feeds page on the front-end.
+    16:25 - 17:15 : Working on part 4, feeds page on the front-end.
 
-### Part 6 - 
+    Part 4 completed in around 4 hrs and 17 minutes.
 
+### MISC - Estimated time 15-20 minutes
+    22 Jul'21
+    20:00 - 20:15 : Working on improving API calls using interceptors.
 
-### Part 7 - 
+    23 Jul'21
+    10:45 - 11:00 : Working on interceptors and back-end middleware
+    11:40 - 12:15 : Working on interceptors and back-end middleware
 
-chitchat from 5:15 to 5:37 pm
+    Misc completed in around 1hr and 35 minutes
+
+### Part 5 - Estimated time 30 to 45 minutes
+    23 Jul'21
+    12:20 - 13:02 : Working on part 5, follow/unfollow endpoints on the back-end
+    13:40 - 13:48 : Testing the follow/unfollow endpoints.
+
+    Part 5 completed in around 50 minutes.
+
+### Part 6 - Estimated time 100 to 120 minutes
+    23 Jul'21
+    13:50 - 15:30 : Working on part 6, displaying suggested users to follow on front-end
+    15:45 - 16:30 : Working on part 6, displaying suggested users to follow on front-end
+
+    Part 6 completed in around 2 hrs and 25 minutes
+
+### MISC - Estimated time 2 minutes
+    23 Jul'21
+    16:31 - 16:33 : Fixed a bug in create new post
+
+    Misc completed in around 2 minutes.
+
+### Part 7 - Estimated time 60-80 minutes
+    23 Jul'21
+    16:35 - 17:15 : Working on part 7, endpoint related to followed users feeds in the back-end.
+
+    25 Jul'21
+    20:00 - 20:20 : Working on part 7, endpoint related to followed users feeds in the back-end
+
+    Part 7 completed in around 60 minutes
+
+### Part 8 - Estimated time 15 minutes
+    25 Jul'21
+    20:20 - 20:30 : Working on part 8, displaying followed users posts in feed.
+
+    Part 8 completed in around 10 minutes
+
+### Part 9 - Estimated time 
+    25 Jul'21
+    20:30 - 20:50 : Working on part 9, creating profile endpoint in the back-end.
+
+    26 Jul'21
+    00:40 - 01:52 : Working on profile page in the front-end.
+    10:38 - 12:23 : Working on profile page in the front-end and profile endpoint in the back-end.
+
+    Part 9 completed in around 3 hrs and 17 minutes.
+
+### Part 10 - Estimated time 30 to 45 minutes
+    26 Jul'21
+    12:35 - 13:06 : Working on like/unlike endpoints in the back-end
+    13:46 - 14:40 : Working on the like/unlike feature in the front-end.
+
+    Part 10 completed in around 1 hr and 25 minutes.
     
 ### MISC
-23 Jul '21
-11.30 - 13.00: Fixed some bugs and UI issues as per the feedback
+    26 Jul '21
+    15:05 - 16:10 : Fixed some bugs and UI issues.
+    16:32 - 17:05 : Implemented Toast Messages and fixed some bugs in the front-end and back-end.
+    20:40 - 21:12 : Fixed some bugs and made some UI improvements.
+    21:46 - 22:51 : Fixed some bugs and made some UI changes to the posts.
